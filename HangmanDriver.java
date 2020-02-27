@@ -42,6 +42,7 @@ public class HangmanDriver
             System.out.println(display);
             char guess = kb.nextLine();
             hangman(guess);
+            attempts --;
         }
     }
 }
