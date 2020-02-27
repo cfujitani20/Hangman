@@ -14,6 +14,9 @@ public class Guess
                 String display += guess.charAt(0);
             }
             else if
+            {
+
+            }
         }
 
     }
