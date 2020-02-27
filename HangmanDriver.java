@@ -19,15 +19,15 @@ public class HangmanDriver
         dictionary.add("syzygy");
         dictionary.add("twyndyllyngs");
         // convert a random word from the arraylist into a blank word for guessing
-        String guessWord = dictionary.get((int)(Math.random() * dictionary.size()));
-        String secretWord = guessWord;
+        int guessWord = ((int)(Math.random() * dictionary.size()));
+        String secretWord = dictionary.get(guessWord);
+        String tempsecretWord = secretWord;
         // Arraylist<String> pastguesses = new ArrayList<String>();
         // pastguesses.add(guess);
-        String display = "";
-        hangman = new hangman();
-        for (int i = 0; i < guessWord.length(); i++)
+        String[] display = secretWord.length();
+        for (int i = 0; i < secretWord.length(); i++)
         {
-            display += "_";
+            display[i] = "_";
         }
         // generate amount of attempts
         int attempts = 7;
@@ -40,9 +40,22 @@ public class HangmanDriver
             System.out.println("Current guesses: " + attempts);
             System.out.println("Enter a single character: ");
             System.out.println(display);
-            char guess = kb.nextLine();
-            hangman(guess);
-            attempts --;
+            String guess = kb.nextLine();
+            for (int i = 0; i < secretWord.length(); i++)
+            {
+                if (tempsecretWord.charAt(i) == guess.charAt(0))
+            {
+                display[i] += guess.charAt(0);
+            }
+            else if (tempsecretWord.charAt(i) != guess.charAt(0))
+            {
+                attempts --;
+            }
+            else
+            {
+                gameOver = true;
+            }
+        }
         }
     }
 }
