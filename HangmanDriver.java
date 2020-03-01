@@ -22,54 +22,40 @@ public class HangmanDriver
         // convert a random word from the arraylist into a blank word for guessing
         int guessWord = ((int)(Math.random() * dictionary.size()));
         String word = dictionary.get(guessWord);
-        char[] secretWord;
-        secretWord = new char[word.length()];
-        for (int i = 0; i < secretWord.length; i++)
-        {
-            secretWord[i] = '_';
-        }
+        String secretWord = new String(new char[word.length()]).replace("\0", "_");
         // generate amount of attempts
-        int attempts = 7;
+        int attempts = 0;
         Scanner kb = new Scanner(System.in);
         //make gamemode false until game is won
-        boolean gameOver = false;
-        while (!gameOver && attempts > 0)
+        System.out.println("Welcome to Hangman!");
+        while (attempts < 7 && secretWord.contains("_"))
         {
-            while (attempts > 0)
-            System.out.println("Welcome to Hangman!");
-            System.out.println("Current guesses left:" + attempts);
+            System.out.println("You have used "+ attempts + " out of 7 attempts left." );
             System.out.println("Enter a single character: ");
             System.out.println(secretWord);
-            String guess = kb.nextLine();
+            String guess = kb.next();
             pastguesses.add(guess);
-            String tempsecret;
-            for (int i = 0; i < secretWord.length; i++)
+            System.out.println(pastguesses + " ");
+            for (int i = 0; i < word.length(); i++)
             {
-                 if (secretWord[i] == guess.charAt(0))
+                 if (word.charAt(i) == guess.charAt(0))
                  {
-                     tempsecret += guess.charAt(0);
-                 }
-                 else if (tempsecret.charAt(i) != '_')
-                 {
-                    tempsecret += word.charAt(i);
+                     secretWord = guess.charAt(0);
+                     System.out.println("Correct! That letter is in the word!");
                  }
                  else
                  {
-                     tempsecret += '_';
+                    System.out.println("Incorrect! That letter is not in the word! Try another letter! ");
+                    attempts++;
                  }
             }
-            if (secretWord.equals(tempsecret))
+            if (attempts == 7)
             {
-                attempts--;
-            }
-            else
-            {
-                secretWord = tempsecret;
+                System.out.println("You ran out of guesses! The word was " + word);
             }
             if (secretWord.equals(word))
             {
-                System.out.println("Correct! You win! The word was "+ word);
-                gameOver = true;
+                System.out.println("Correct! You win! The word was " + word);
             }
         }
     }
