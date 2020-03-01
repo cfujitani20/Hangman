@@ -18,16 +18,15 @@ public class HangmanDriver
         dictionary.add("backpack");
         dictionary.add("syzygy");
         dictionary.add("twyndyllyngs");
+        ArrayList<String> pastguesses = new ArrayList<String>();
         // convert a random word from the arraylist into a blank word for guessing
         int guessWord = ((int)(Math.random() * dictionary.size()));
-        String secretWord = dictionary.get(guessWord);
-        String tempsecretWord = secretWord;
-        // Arraylist<String> pastguesses = new ArrayList<String>();
-        // pastguesses.add(guess);
-        String[] display = secretWord.length();
-        for (int i = 0; i < secretWord.length(); i++)
+        String word = dictionary.get(guessWord);
+        char[] secretWord;
+        secretWord = new char[word.length()];
+        for (int i = 0; i < secretWord.length; i++)
         {
-            display[i] = "_";
+            secretWord[i] = '_';
         }
         // generate amount of attempts
         int attempts = 7;
@@ -36,26 +35,42 @@ public class HangmanDriver
         boolean gameOver = false;
         while (!gameOver && attempts > 0)
         {
+            while (attempts > 0)
             System.out.println("Welcome to Hangman!");
-            System.out.println("Current guesses: " + attempts);
+            System.out.println("Current guesses left:" + attempts);
             System.out.println("Enter a single character: ");
-            System.out.println(display);
+            System.out.println(secretWord);
             String guess = kb.nextLine();
-            for (int i = 0; i < secretWord.length(); i++)
+            pastguesses.add(guess);
+            String tempsecret;
+            for (int i = 0; i < secretWord.length; i++)
             {
-                if (tempsecretWord.charAt(i) == guess.charAt(0))
-            {
-                display[i] += guess.charAt(0);
+                 if (secretWord[i] == guess.charAt(0))
+                 {
+                     tempsecret += guess.charAt(0);
+                 }
+                 else if (tempsecret.charAt(i) != '_')
+                 {
+                    tempsecret += word.charAt(i);
+                 }
+                 else
+                 {
+                     tempsecret += '_';
+                 }
             }
-            else if (tempsecretWord.charAt(i) != guess.charAt(0))
+            if (secretWord.equals(tempsecret))
             {
-                attempts --;
+                attempts--;
             }
             else
             {
+                secretWord = tempsecret;
+            }
+            if (secretWord.equals(word))
+            {
+                System.out.println("Correct! You win! The word was "+ word);
                 gameOver = true;
             }
-        }
         }
     }
 }
