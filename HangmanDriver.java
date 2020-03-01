@@ -23,6 +23,7 @@ public class HangmanDriver
         int guessWord = ((int)(Math.random() * dictionary.size()));
         String word = dictionary.get(guessWord);
         String secretWord = new String(new char[word.length()]).replace("\0", "_");
+        String temp = StringBuilder(secretWord);
         // generate amount of attempts
         int attempts = 0;
         Scanner kb = new Scanner(System.in);
@@ -40,7 +41,7 @@ public class HangmanDriver
             {
                  if (word.charAt(i) == guess.charAt(0))
                  {
-                     secretWord = guess.charAt(0);
+                     temp.setCharAt(i, guess.charAt(0));
                      System.out.println("Correct! That letter is in the word!");
                  }
                  else
