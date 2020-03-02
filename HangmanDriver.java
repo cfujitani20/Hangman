@@ -21,11 +21,13 @@ public class HangmanDriver
         ArrayList<String> pastguesses = new ArrayList<String>();
         // convert a random word from the arraylist into a blank word for guessing
         int guessWord = ((int)(Math.random() * dictionary.size()));
+        ArrayList<Letter> hidden = new ArrayList<Letter>();
+        hidden.add(new Letter(""))
         String word = dictionary.get(guessWord);
-        String secretWord = new String(new char[word.length()]).replace("\0", "_");
-        String temp = StringBuilder(secretWord);
+        String secretWord = new String(new char[word.length()]).replace("\0", "_ ");
         // generate amount of attempts
         int attempts = 0;
+        boolean correct = false;
         Scanner kb = new Scanner(System.in);
         //make gamemode false until game is won
         System.out.println("Welcome to Hangman!");
@@ -39,16 +41,26 @@ public class HangmanDriver
             System.out.println(pastguesses + " ");
             for (int i = 0; i < word.length(); i++)
             {
-                 if (word.charAt(i) == guess.charAt(0))
-                 {
-                     temp.setCharAt(i, guess.charAt(0));
-                     System.out.println("Correct! That letter is in the word!");
-                 }
-                 else
-                 {
+                hidden.add(new Letter(i));
+                if (guess.charAt(0) == word.charAt(i))
+                {
+                    int index = word.indexOf(guess);
+                    String temp = word.substring(0, index);
+                    temp += secretWord.substring(0, index);
+                    temp += secretWord.substring(index + 1);
+                    correct = true;
+                }
+                if (correct = true)
+                {
+                    System.out.println("Correct! That letter is in the word!");
+                    break;
+                }
+                else
+                {
                     System.out.println("Incorrect! That letter is not in the word! Try another letter! ");
                     attempts++;
-                 }
+                    break;
+                }
             }
             if (attempts == 7)
             {
