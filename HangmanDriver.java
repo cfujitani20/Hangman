@@ -22,13 +22,16 @@ public class HangmanDriver
         // convert a random word from the arraylist into a blank word for guessing
         int guessWord = ((int)(Math.random() * dictionary.size()));
         ArrayList<Letter> hidden = new ArrayList<Letter>();
-        hidden.add(new Letter(""))
+        hidden.add(new Letter(""));
         String word = dictionary.get(guessWord);
         String secretWord = new String(new char[word.length()]).replace("\0", "_ ");
         // generate amount of attempts
         int attempts = 0;
-        boolean correct = false;
         Scanner kb = new Scanner(System.in);
+        for (int j = 0; j < word.length(); j++)
+        {
+            hidden.add(new Letter(Character.toString(word.charAt(j))));
+        }
         //make gamemode false until game is won
         System.out.println("Welcome to Hangman!");
         while (attempts < 7 && secretWord.contains("_"))
@@ -41,33 +44,29 @@ public class HangmanDriver
             System.out.println(pastguesses + " ");
             for (int i = 0; i < word.length(); i++)
             {
-                hidden.add(new Letter(i));
-                if (guess.charAt(0) == word.charAt(i))
+                for (Letter l : hidden)
                 {
-                    int index = word.indexOf(guess);
-                    String temp = word.substring(0, index);
-                    temp += secretWord.substring(0, index);
-                    temp += secretWord.substring(index + 1);
-                    correct = true;
+                    if (guess == Character.toString(hidden.get(i)))
+                    {
+                        l.setFound(true);
+                        System.out.print(l + " ");
+                    }
+                    else
+                    {
+                        System.out.println("Incorrect! That letter is not in the word! Try another letter! ");
+                        attempts++;
+                        break;
+                    }
                 }
-                if (correct = true)
-                {
-                    System.out.println("Correct! That letter is in the word!");
-                    break;
-                }
-                else
-                {
-                    System.out.println("Incorrect! That letter is not in the word! Try another letter! ");
-                    attempts++;
-                    break;
-                }
+                System.out.println();
             }
             if (attempts == 7)
             {
                 System.out.println("You ran out of guesses! The word was " + word);
             }
-            if (secretWord.equals(word))
+            for (Letter l : hidden)
             {
+                if ()
                 System.out.println("Correct! You win! The word was " + word);
             }
         }
