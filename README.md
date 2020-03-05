@@ -1,0 +1,12 @@
+# Hangman
+https://github.com/cfujitani20/Hangman
+
+My project is a simple game of hangman where the player guesses and tries to find all the letters of a blank secret word before their attempts run out. 
+
+When the program begins, it takes and creates an arraylist which stores the the string of words inside of it. Another araylist of past guesses is also made to display all of the guesses done by the player. Next, a random word is taken, though Math.random( for a random string in the arraylist or hidden word. The program then waits for input from the user to put a character to guess in the command line. An arraylist called Letters which are a type of class which is just strings but are a single character to allow me to hide an reveal characters as the player guesses each time. If the player guesses correctly, the hidden letter uses the function setFound() which states that when the Letter is first initalized, it is false, when setFound() is used, it becomes true and reveals itself to the user. If the guess is wrong, it adds an attempt to the total guesses the player has left and breaks. If not it checks for amount of guesses !=7 or if all the letters in the hidden arraylist are revealed, and the user wins the game.
+
+A first A-ha moment that I had was when I was discussing with Mr. Kiang about strings. He helped me realize that the strings could not be compared to with just an == sign. The correct method was to utilize the toString() method, which allows the user to compare two strings and update a string each time. It's useful in which creating my Letters in the arraylist as I could modify the string of Letters each time a user had a new guess. 
+
+My second a-ha moment was I realized tht I needed to modify a string numerous times and keep updating that string to show the user which letters they still had to guess. Mr. Kiang helped me create a class called Letters which are normal letters, but in an arraylist of strings, which also has a boolean attached. It allows me to compare and modify a single character with a boolean, but it has the functationality of a string. 
+
+MY third and final a-ha moment was Mr. Kiang explaining how powerful strings are. When I first created the code, I used a char arraylist which is fine , but the efficency of the code was not there. Strings just have a lot more functionality compared to chars which allows it to do so much more like toString() and can be modifed much easier than an array of characters. 
