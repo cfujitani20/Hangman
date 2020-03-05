@@ -36,37 +36,41 @@ public class HangmanDriver
         System.out.println("Welcome to Hangman!");
         while (attempts < 7 && secretWord.contains("_"))
         {
+            // inital print statments of characters and attempts left
             System.out.println("You have used "+ attempts + " out of 7 attempts left." );
             System.out.println("Enter a single character: ");
             System.out.println(secretWord);
             String guess = kb.next();
+            // adding letters to new blank line 
+            Letter g = new Letter(guess, false);
             pastguesses.add(guess);
             System.out.println(pastguesses + " ");
             for (int i = 0; i < word.length(); i++)
             {
-                for (Letter l : hidden)
+                // check if the Letter in hidden is equal to g 
+                if (hidden == g)
                 {
-                    if (guess == Character.toString(hidden.get(i)))
-                    {
-                        l.setFound(true);
-                        System.out.print(l + " ");
-                    }
-                    else
-                    {
-                        System.out.println("Incorrect! That letter is not in the word! Try another letter! ");
-                        attempts++;
-                        break;
-                    }
+                    // set Letter to setFound() if true 
+                    l.setFound();
+                    System.out.print(l + " ");
+                }
+                else
+                {
+                    // if guess is incorrect, add an attempt and break.
+                    System.out.println("Incorrect! That letter is not in the word! Try another letter! ");
+                    attempts++;
+                    break;
                 }
                 System.out.println();
             }
+            // if attempts get to 7 gameover 
             if (attempts == 7)
             {
                 System.out.println("You ran out of guesses! The word was " + word);
             }
+            // if all letters are equal, then gameover 
             for (Letter l : hidden)
             {
-                if ()
                 System.out.println("Correct! You win! The word was " + word);
             }
         }
